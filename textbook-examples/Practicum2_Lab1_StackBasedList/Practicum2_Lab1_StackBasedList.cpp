@@ -35,6 +35,21 @@ void printList(Node_ptr head) {
 	cout << "NULL" << endl;
 }
 
+void del_node(Node_ptr p, int E) {
+	Node_ptr x = p;
+	while (x != NULL) {
+		if (x->a == E) {
+			if (x->next != NULL) {
+				Node_ptr y = x->next;
+				x->next = x->next->next;
+				delete y;
+			}
+		}
+
+		x = x->next;
+	}
+}
+
 int main()
 {
 	SetConsoleOutputCP(CP_UTF8);
@@ -44,6 +59,10 @@ int main()
 	cout << "Создаем список из " << n << " элементов..." << endl;
 
 	Node_ptr myList = input(n);
+
+	printList(myList);
+
+	del_node(myList, -81);
 
 	printList(myList);
 
