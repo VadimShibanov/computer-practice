@@ -10,13 +10,17 @@ struct node {
 
 typedef struct node* Node_ptr;
 
+int numForList;
+
 Node_ptr input(int n) {
 	Node_ptr curr = NULL, pred = NULL;
 
 	cout << "Список:" << endl;
 	for (int i = 0; i < n; i++) {
 		curr = new struct node;
-		curr->a = rand() / 1000 - 100;
+		cout << "Введи число ";
+		cin >> numForList;
+		curr->a = numForList;
 		cout << "Элемент:" << curr->a << endl;
 		curr->next = pred;
 		pred = curr;
@@ -25,12 +29,52 @@ Node_ptr input(int n) {
 	return pred;
 }
 
-void del_node() {
+Node_ptr del_node(Node_ptr head) {
+	if (head == NULL) return NULL;
 
+	Node_ptr x = head->next;
+	int min = head->a;
+
+	while (x != NULL) {
+		if (x->a < min) min = x->a;
+		x = x->next;
+	}
+
+	Node_ptr toDelete = NULL;
+
+	while (head != NULL && head->a == min) {
+		toDelete = head;
+		head = head->next;
+		delete toDelete;
+	}
+
+	if (head == NULL) return NULL;
+
+	Node_ptr curr = head;
+	
+	while (curr->next != NULL) {
+		if (curr->next->a == min) {
+			toDelete = curr->next;
+			curr->next = curr->next->next;
+			delete toDelete;
+		}
+		else {
+			curr = curr->next;
+		}
+	}
+
+	return head;
 }
 
 void printList(Node_ptr head) {
+	if (head == NULL) {
+		cout << "Список пуст!";
+		cout << endl;
+		return;
+	}
+
 	cout << "Вывод элементов:" << endl;
+
 	Node_ptr curr = head;
 
 	while (curr != NULL) {
@@ -44,6 +88,14 @@ int main()
 	SetConsoleOutputCP(CP_UTF8);
 	setlocale(LC_CTYPE, "Russian");
 
-	printList(input(5));
+	Node_ptr list = input(5);
+	printList(list);
+
+	Node_ptr listNew = del_node(list);
+
+	cout << endl;
+
+	printList(listNew);
+
 	return 0;
 }
