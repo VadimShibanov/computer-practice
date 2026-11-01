@@ -10,8 +10,6 @@ struct node {
 
 typedef struct node* Node_ptr;
 
-int numForList;
-
 Node_ptr input(int n) {
 	Node_ptr curr = NULL, pred = NULL;
 
@@ -19,8 +17,7 @@ Node_ptr input(int n) {
 	for (int i = 0; i < n; i++) {
 		curr = new struct node;
 		cout << "Введи число ";
-		cin >> numForList;
-		curr->a = numForList;
+		cin >> curr->a;
 		cout << "Элемент:" << curr->a << endl;
 		curr->next = pred;
 		pred = curr;
