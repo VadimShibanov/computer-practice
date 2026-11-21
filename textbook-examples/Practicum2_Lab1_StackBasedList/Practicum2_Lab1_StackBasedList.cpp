@@ -52,7 +52,7 @@ void del_node(Node_ptr p, int E) {
 
 int main()
 {
-	SetConsoleOutputCP(CP_UTF8);
+	//SetConsoleOutputCP(CP_UTF8);
 	setlocale(LC_CTYPE, "Russian");
 
 	int n = 5;
